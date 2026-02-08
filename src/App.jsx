@@ -1,39 +1,57 @@
-
-
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
+
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-
+import Home from "./pages/Home";
 
 export default function App() {
-  const [currentView, setCurrentView] = useState("login");
+  const navigate = useNavigate();
 
-  const handleLogin = (email, password) => {
-    console.log("Login:", email, password);
-    // hələlik backend yoxdur – sadəcə yoxlama üçün
-  };
-
-  const handleRegister = (userData) => {
-    console.log("Register:", userData);
-    // hələlik backend yoxdur
-  };
+  const [isAuth, setIsAuth] = useState(!!localStorage.getItem("user"));
 
   return (
-    <>
-      {currentView === "login" && (
-        <LoginPage
-          onLogin={handleLogin}
-          onSwitchToRegister={() => setCurrentView("register")}
-        />
-      )}
+    <Routes>
+      <Route
+        path="/"
+        element={
+          isAuth ? (
+            <Navigate to="/home" />
+          ) : (
+            <LoginPage
+              onLogin={(user) => {
+                localStorage.setItem("user", JSON.stringify(user));
+                setIsAuth(true);
+                navigate("/home");
+              }}
+              onSwitchToRegister={() => navigate("/register")}
+            />
+          )
+        }
+      />
 
-      {currentView === "register" && (
-        <RegisterPage
-          onRegister={handleRegister}
-          onSwitchToLogin={() => setCurrentView("login")}
-        />
-      )}
-    </>
+      <Route
+        path="/register"
+        element={
+          isAuth ? (
+            <Navigate to="/home" />
+          ) : (
+            <RegisterPage
+              onRegister={(user) => {
+                localStorage.setItem("user", JSON.stringify(user));
+                setIsAuth(true);
+                navigate("/home");
+              }}
+              onSwitchToLogin={() => navigate("/")}
+            />
+          )
+        }
+      />
+
+      <Route
+        path="/home"
+        element={isAuth ? <Home setIsAuth={setIsAuth} /> : <Navigate to="/" />}
+      />
+    </Routes>
   );
 }
-
