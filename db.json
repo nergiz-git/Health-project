@@ -184,6 +184,19 @@
       "conditionCategory": "Böyrək və qaraciyər xəstəlikləri",
       "condition": "Böyrək çatışmazlığı",
       "severity": "moderate"
+    },
+    {
+      "id": "5b12",
+      "fullName": "sara",
+      "email": "s@gmail.com",
+      "password": "98765432",
+      "dateOfBirth": "2026-02-02",
+      "gender": "male",
+      "height": 11,
+      "weight": -1,
+      "conditionCategory": "",
+      "condition": "",
+      "severity": ""
     }
   ]
 }
