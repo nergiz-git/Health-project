@@ -109,7 +109,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
 
        
         <div className="hidden lg:flex h-full items-center">
-          <div className="space-y-10 pr-10 ml-[190px] mt-[100px]">
+          <div className="space-y-10 pr-10 ml-[100px] mt-[100px]">
 
             <div className="flex items-center gap-3 animate-slide-in-left" style={{ animationDelay: '0.1s' }}>
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center shadow-xl">
@@ -166,7 +166,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
 
      
         <div className="w-full flex flex-col items-center justify-center lg:justify-end animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 w-full max-w-[520px] mr-[140px] ">
+          <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 w-full max-w-[520px]">
 
             <div className="mb-8">
               <h2 className="text-slate-900 text-[28px] font-bold">Xoş Gəlmisiniz</h2>
@@ -280,7 +280,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
             </div>
 
           </div>
-          <p className="text-center text-[13px] text-slate-500 mt-6 mr-[130px]">
+          <p className="text-center text-[13px] text-slate-500 mt-6">
             Daxil olmaqla siz bizim{' '}
             <a href="#" className="text-blue-600 hover:underline">
               Xidmət Şərtləri

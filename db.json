@@ -145,6 +145,19 @@
       "conditionCategory": "İmmun və autoimmun xəstəliklər",
       "condition": "Psoriaz",
       "severity": "mild"
+    },
+    {
+      "id": "8f89",
+      "fullName": "drftgjyh",
+      "email": "nergizmehdiyeva051@gmail.com",
+      "password": "123",
+      "dateOfBirth": "2026-02-11",
+      "gender": "male",
+      "height": 23,
+      "weight": 76,
+      "conditionCategory": "Sinir sistemi",
+      "condition": "Miqren",
+      "severity": "mild"
     }
   ]
 }
