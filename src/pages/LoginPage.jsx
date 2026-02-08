@@ -29,22 +29,27 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
     }, 2000);
   };
 
+ 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  setAttemptedSubmit(true);
 
-    try {
-      const res = await fetch(`http://localhost:3000/users?email=${email}&password=${password}`);
-      const users = await res.json();
+  if (!email || !password) {
+    setShowValidationError(true);
+    return;
+  }
 
-      if (users.length > 0) {
-        onLogin(users[0]);
-      } else {
-      
-      }
-    } catch (err) {
-      console.error(err);
-    }
+ 
+  const demoUser = {
+    fullName: "Demo İstifadəçi",
+    email,
   };
+
+  onLogin(demoUser);
+};
+
+
+
 
   const getInputClassName = (value) => {
     if (!attemptedSubmit)

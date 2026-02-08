@@ -158,6 +158,32 @@
       "conditionCategory": "Sinir sistemi",
       "condition": "Miqren",
       "severity": "mild"
+    },
+    {
+      "id": "af22",
+      "fullName": "nari",
+      "email": "nargiz@gmail.com",
+      "password": "123456",
+      "dateOfBirth": "2004-02-03",
+      "gender": "male",
+      "height": 654,
+      "weight": 21,
+      "conditionCategory": "Endokrin və maddələr mübadiləsi",
+      "condition": "Hipotireoz",
+      "severity": "moderate"
+    },
+    {
+      "id": "68c3",
+      "fullName": "gul",
+      "email": "gul@gmail.com",
+      "password": "gul123",
+      "dateOfBirth": "2000-03-03",
+      "gender": "male",
+      "height": 123,
+      "weight": 23,
+      "conditionCategory": "Böyrək və qaraciyər xəstəlikləri",
+      "condition": "Böyrək çatışmazlığı",
+      "severity": "moderate"
     }
   ]
 }
