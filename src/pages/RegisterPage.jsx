@@ -195,7 +195,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                     placeholder="John Doe"
                     value={fullName}
                     onChange={e => setFullName(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5]"
+                    className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     required
                   />
                 </div>
@@ -214,7 +214,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                     placeholder="sizin.email@gmail.com"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5]"
+                    className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     required
                   />
                 </div>
@@ -233,7 +233,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                     type="date"
                     value={dateOfBirth}
                     onChange={e => setDateOfBirth(e.target.value)}
-                    className="w-full pl-12 pr-4 pr-[270px] py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5]"
+                    className="w-full pl-12 pr-4 pr-[270px] py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     required
                   />
                 </div>
@@ -250,7 +250,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                   <select
                     value={gender}
                     onChange={e => setGender(e.target.value)}
-                    className="w-full h-[60px] pl-12 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer"
+                    className="w-full h-[60px] pl-12 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer text-slate-500"
                   >
                     <option value="male">Kişi</option>
                     <option value="female">Qadın</option>
@@ -279,7 +279,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                       placeholder="165"
                       value={height || ''}
                       onChange={e => setHeight(Number(e.target.value))}
-                      className="w-full h-[43px] pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5]"
+                      className="w-full h-[43px] pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     />
                   </div>
                 </div>
@@ -299,7 +299,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                       placeholder="68"
                       value={weight || ''}
                       onChange={e => setWeight(Number(e.target.value))}
-                      className="w-full h-[43px] pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5]"
+                      className="w-full h-[43px] pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     />
                   </div>
                 </div>
@@ -315,7 +315,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                   <select
                     value={conditionCategory}
                     onChange={e => setConditionCategory(e.target.value)}
-                    className="w-full h-[60px] pl-12 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer"
+                    className="w-full h-[60px] pl-12 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer text-slate-500"
                   >
                     <option value="">Xəstəlik kateqoriyanızı seçin</option>
                     {healthConditionCategories.map(c => <option key={c} value={c}>{c}</option>)}
@@ -338,7 +338,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                   <select
                     value={condition}
                     onChange={e => setCondition(e.target.value)}
-                    className="w-full h-[60px] pl-12 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer"
+                    className="w-full h-[60px] pl-12 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer text-slate-500"
                     disabled={!conditionCategory}
                   >
                     <option value="">Xəstəliyinizi seçin</option>
@@ -360,7 +360,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                   <select
                     value={severity}
                     onChange={e => setSeverity(e.target.value)}
-                    className="w-full h-[60px] pl-12 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer"
+                    className="w-full h-[60px] pl-12 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer text-slate-500"
                   >
                     <option value="">Ağırlıq dərəcəsini seçin</option>
                     <option value="mild">Yüngül</option>
@@ -387,7 +387,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                     placeholder="••••••••"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5]"
+                    className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     required
                   />
                   <button
@@ -421,7 +421,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                     placeholder="••••••••"
                     value={confirmPassword}
                     onChange={e => setConfirmPassword(e.target.value)}
-                    className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5]"
+                    className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     required
                   />
                   <button
