@@ -189,7 +189,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                     placeholder="sizin.email@gmail.com "
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`${getInputClassName(email)} bg-[#F3F3F5]`}
+                    className={`${getInputClassName(email)} bg-[#F3F3F5] text-[black]`}
                     required
                   />
                 </div>
@@ -204,7 +204,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`${getPasswordInputClassName(password)}  bg-[#F3F3F5]`}
+                    className={`${getPasswordInputClassName(password)}  bg-[#F3F3F5] text-[black]`}
                     required
                   />
 
@@ -285,7 +285,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
             </div>
 
           </div>
-          <p className="text-center text-[13px] text-slate-500 mt-6">
+          <p className="text-center text-[13px] text-slate-500 mt-6 color-[white]">
             Daxil olmaqla siz bizim{' '}
             <a href="#" className="text-blue-600 hover:underline">
               Xidmət Şərtləri
