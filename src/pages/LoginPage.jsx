@@ -142,7 +142,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
             </div>
 
             <div className="space-y-5 pt-4 animate-slide-in-left" style={{ animationDelay: '0.4s' }}>
-              <div className="flex items-center gap-4 bg-white/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-white/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-/40 w-[600px]">
                 <span className="text-3xl">💊</span>
                 <div>
                   <p className="font-semibold text-slate-800 ">Dərman izləmə</p>
@@ -150,7 +150,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-white/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-white/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-/40 w-[600px]">
                 <span className="text-3xl">🥗</span>
                 <div>
                   <p className="font-semibold text-slate-800">Qidalanma Planlaması</p>
@@ -158,7 +158,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-white/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-white/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-/40 w-[600px]">
                 <span className="text-3xl">💪</span>
                 <div>
                   <p className="font-semibold text-slate-800">Məşq Cədvəlləri</p>
@@ -171,7 +171,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
 
      
         <div className="w-full flex flex-col items-center justify-center lg:justify-end animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 w-full max-w-[520px]">
+          <div className="bg- rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 w-full max-w-[520px]">
 
             <div className="mb-8">
               <h2 className="text-slate-900 text-[28px] font-bold">Xoş Gəlmisiniz</h2>
@@ -189,7 +189,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                     placeholder="sizin.email@gmail.com "
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`${getInputClassName(email)} bg-[#F3F3F5] text-[black]`}
+                    className={`${getInputClassName(email)} bg-[#F3F3F5] text-slate-500`}
                     required
                   />
                 </div>
@@ -204,7 +204,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`${getPasswordInputClassName(password)}  bg-[#F3F3F5] text-[black]`}
+                    className={`${getPasswordInputClassName(password)}  bg-[#F3F3F5] text-slate-500`}
                     required
                   />
 
@@ -255,7 +255,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 className="w-full h-[45px] 
              bg-gradient-to-r from-green-600 to-blue-600 
              hover:from-green-700 hover:to-blue-700
-             text-white rounded-xl
+             text- rounded-xl
              shadow-lg hover:shadow-2xl
              transition-all duration-200
              flex items-center justify-center gap-2"
@@ -271,7 +271,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 <div className="w-full border-t border-slate-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-slate-500">VƏ YA</span>
+                <span className="px-4 bg- text-slate-500">VƏ YA</span>
               </div>
             </div>
 
@@ -285,7 +285,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
             </div>
 
           </div>
-          <p className="text-center text-[13px] text-slate-500 mt-6 color-[white]">
+          <p className="text-center text-[13px] text-slate-500 mt-6 text-[white]">
             Daxil olmaqla siz bizim{' '}
             <a href="#" className="text-blue-600 hover:underline">
               Xidmət Şərtləri
@@ -305,7 +305,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
 
       {showForgotPasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-10 shadow-2xl shadow-slate-300/50 w-full max-w-2xl">
+          <div className="bg- rounded-2xl p-10 shadow-2xl shadow-slate-300/50 w-full max-w-2xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-slate-900 text-[20px] font-bold">Şifrəni Bərpa Et</h3>
               <button
