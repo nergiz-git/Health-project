@@ -184,6 +184,19 @@
       "conditionCategory": "Böyrək və qaraciyər xəstəlikləri",
       "condition": "Böyrək çatışmazlığı",
       "severity": "moderate"
+    },
+    {
+      "id": "3f15",
+      "fullName": "rose",
+      "email": "rose@gmail.com",
+      "password": "12345",
+      "dateOfBirth": "2007-11-22",
+      "gender": "female",
+      "height": 169,
+      "weight": 65,
+      "conditionCategory": "Endokrin və maddələr mübadiləsi",
+      "condition": "Hipotireoz",
+      "severity": "mild"
     }
   ]
 }

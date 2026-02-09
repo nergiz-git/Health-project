@@ -41,7 +41,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
 
  
   const demoUser = {
-    fullName: "Demo İstifadəçi",
+    fullName: "Sarah Johnson",
     email,
   };
 
