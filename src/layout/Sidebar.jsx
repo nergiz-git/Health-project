@@ -157,3 +157,4 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
   );
 }
 export default Sidebar
+

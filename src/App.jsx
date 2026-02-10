@@ -1,75 +1,115 @@
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Home from './pages/Home';
 import Layout from './layout/layout';
 
-export default function App() {
-  const navigate = useNavigate();
-  const [isAuth, setIsAuth] = useState(!!localStorage.getItem('user'));
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    setIsAuth(false);
-    setUser(null);
-    navigate('/login');
+function App() {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      
+      if (token) {
+        try {
+          const res = await fetch(`${API_BASE_URL}/auth/me`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+
+          if (res.ok) {
+            const userData = await res.json();
+            setUser(userData);
+          } else {
+            localStorage.removeItem('token');
+          }
+        } catch (err) {
+          console.error('Auth check failed:', err);
+          localStorage.removeItem('token');
+        }
+      }
+      
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, []);
+
+  const handleLogin = (data) => {
+    localStorage.setItem('token', data.token);
+    setUser(data.user);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-green-50/30">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="text-slate-600 mt-4">Yüklənir...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <Routes>
-      <Route 
-        path="/" 
-        element={<Navigate to={isAuth ? "/home" : "/login"} replace />} 
-      />
+    <Router>
+      <Routes>
+   
+        <Route
+          path="/login"
+          element={
+            user ? (
+              <Navigate to="/home" replace />
+            ) : (
+              <LoginPage onLogin={handleLogin} />
+            )
+          }
+        />
+
+        
+        <Route
+          path="/register"
+          element={
+            user ? (
+              <Navigate to="/home" replace />
+            ) : (
+              <RegisterPage />
+            )
+          }
+        />
+
      
-      <Route
-        path="/login"
-        element={
-          isAuth ? (
-            <Navigate to="/home" replace />
-          ) : (
-            <LoginPage
-              onLogin={(userData) => {
-                localStorage.setItem('user', JSON.stringify(userData));
-                setIsAuth(true);
-                setUser(userData);
-                navigate('/home');
-              }}
-              onSwitchToRegister={() => navigate('/register')}
-            />
-          )
-        }
-      />
+        <Route
+          path="/"
+          element={
+            user ? (
+              <Layout user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        >
+          <Route path="home" element={<Home user={user} />} />
+          <Route index element={<Navigate to="home" replace />} />
+        </Route>
 
-      <Route
-        path="/register"
-        element={
-          isAuth ? (
-            <Navigate to="/home" replace />
-          ) : (
-            <RegisterPage
-              onRegister={(userData) => {
-                localStorage.setItem('user', JSON.stringify(userData));
-                setIsAuth(true);
-                setUser(userData);
-                navigate('/home');
-              }}
-              onSwitchToLogin={() => navigate('/login')}
-            />
-          )
-        }
-      />
-
-      <Route
-        element={isAuth ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/login" replace />}
-      >
-        <Route path="/home" element={<Home setIsAuth={setIsAuth} />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+      
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 }
+
+export default App;

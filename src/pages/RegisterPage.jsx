@@ -7,7 +7,7 @@ import { useState } from "react";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
-function RegisterPage({ onRegister, onSwitchToLogin }) {
+function RegisterPage({ onSwitchToLogin }) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,44 +51,35 @@ const handleSubmit = async (e) => {
     fullName,
     email,
     password,
-    dateOfBirth,              
+    dateOfBirth,
     gender: gender.toLowerCase(),
     height: Number(height),
     weight: Number(weight),
-    conditionId: 1,        
-    severity: "mild"       
+    conditionId: 1,
+    severity: "mild"
   };
 
-  console.log("REGISTER PAYLOAD:", payload);
-
   try {
-    const res = await fetch(
-      `${API_BASE_URL}/auth/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      }
-    );
+    const res = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
     const data = await res.json();
 
     if (!res.ok) {
-      console.error("BACKEND ERROR:", data);
-      throw new Error(data.message || "İstifadəçi əlavə edilə bilmədi");
+      throw new Error(data.message || "Qeydiyyat uğursuz oldu");
     }
-  
+
     console.log("REGISTER SUCCESS:", data);
-    localStorage.setItem("token", data.token);
-    navigate("/login");
+ 
+   navigate("/login");
   } catch (err) {
-    console.error("REGISTER CATCH:", err);
+    console.error("REGISTER ERROR:", err);
     alert(err.message);
   }
 };
-
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-teal-50">
       <style>{`
@@ -514,7 +505,7 @@ const handleSubmit = async (e) => {
                 Artıq hesabınız var?{' '}
                 <button
                   type="button"
-                  onClick={onSwitchToLogin}
+                    onClick={() => navigate('/login')}
                   className="text-teal-600 hover:text-teal-700 font-semibold transition-colors !bg-transparent"
                 >
                   Daxil olun
