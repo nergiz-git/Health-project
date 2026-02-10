@@ -4,6 +4,7 @@ import { Button } from "../ui/Button";
 import medicalBg from "../assets/images/medicalBg.png";
 import { Label } from "../ui/Label";
 import { Input } from "../ui/Input";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function LoginPage({ onLogin, onSwitchToRegister }) {
   const [email, setEmail] = useState("");
@@ -15,10 +16,10 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
-const [currentUser, setCurrentUser] = useState(null);
 
+const [currentUser, setCurrentUser] = useState(null);
 const handleLogin = (userData) => {
-  setCurrentUser(userData); // userData: { fullName, profilePhoto, condition ... }
+  setCurrentUser(userData); 
 };
 
   const handleForgotPassword = (e) => {
@@ -46,7 +47,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    const res = await fetch("https://health-assistant-backend-6or5.onrender.com/auth/login", {
+    const res = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
@@ -59,10 +60,8 @@ const handleSubmit = async (e) => {
 
     const data = await res.json();
 
-    // Token-i localStorage-a yaz
     if (data.token) localStorage.setItem("token", data.token);
 
-    // Demo user əvəzinə real data göndər
     onLogin(data);
 
   } catch (err) {
@@ -327,7 +326,7 @@ const handleSubmit = async (e) => {
 
       {showForgotPasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-[white] rounded-2xl p-10 shadow-2xl shadow-slate-300/50 w-full max-w-2xl">
+          <div className="bg- rounded-2xl p-10 shadow-2xl shadow-slate-300/50 w-full max-w-2xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-slate-900 text-[20px] font-bold">Şifrəni Bərpa Et</h3>
               <button

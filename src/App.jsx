@@ -13,6 +13,7 @@ export default function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     setIsAuth(false);
     setUser(null);
     navigate('/login');
@@ -20,12 +21,16 @@ export default function App() {
 
   return (
     <Routes>
+      <Route 
+        path="/" 
+        element={<Navigate to={isAuth ? "/home" : "/login"} replace />} 
+      />
      
       <Route
         path="/login"
         element={
           isAuth ? (
-            <Navigate to="/home" />
+            <Navigate to="/home" replace />
           ) : (
             <LoginPage
               onLogin={(userData) => {
@@ -40,12 +45,11 @@ export default function App() {
         }
       />
 
-   
       <Route
         path="/register"
         element={
           isAuth ? (
-            <Navigate to="/home" />
+            <Navigate to="/home" replace />
           ) : (
             <RegisterPage
               onRegister={(userData) => {
@@ -60,14 +64,12 @@ export default function App() {
         }
       />
 
- 
       <Route
-        element={isAuth ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}
+        element={isAuth ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/login" replace />}
       >
         <Route path="/home" element={<Home setIsAuth={setIsAuth} />} />
-    
       </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
-

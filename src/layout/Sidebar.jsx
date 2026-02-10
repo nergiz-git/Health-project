@@ -35,7 +35,7 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
      
 
       <div className="relative z-10 flex flex-col h-full">
-        {/* Logo + Toggle */}
+
         <div className="h-20 flex items-center justify-between px-6 border-b border-slate-200/80">
           {isOpen ? (
             <>
@@ -69,7 +69,6 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
           )}
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1 py-8 px-4 overflow-y-auto">
           <ul className="space-y-1.5">
             {menuItems.map((item) => {
@@ -94,7 +93,6 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
           </ul>
         </nav>
 
-        {/* User Profile */}
         <div className="border-t border-slate-200/80 p-4">
           {isOpen ? (
             <div className="space-y-3">
@@ -110,7 +108,7 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
                 </Avatar>
                 <div className="flex-1 min-w-0 text-left">
                   <div className="text-[14px] font-semibold text-slate-800 truncate">
-                    {user?.fullName || 'Istifadeci'}
+                    {user?.fullName || 'Giriş edilmeyib'}
                   </div>
                   <div className="text-[12px] text-slate-500 truncate">
                     {user?.condition || 'Type 2 Diabetes'}
