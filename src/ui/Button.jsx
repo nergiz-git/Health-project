@@ -39,7 +39,7 @@ function Button({ className, variant, size, asChild = false, type, ...props }) {
   return (
     <Comp
       data-slot="button"
-      type={type} // <-- burada form üçün type əlavə olunur
+      type={type} 
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />

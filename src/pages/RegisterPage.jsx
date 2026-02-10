@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import medicalBg from "../assets/images/medicalBg.png";
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Heart, HeartPulse, Ruler, Weight } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 function RegisterPage({ onRegister, onSwitchToLogin }) {
@@ -63,7 +63,7 @@ const handleSubmit = async (e) => {
 
   try {
     const res = await fetch(
-      "https://health-assistant-backend-6or5.onrender.com/auth/register",
+      `${API_BASE_URL}/auth/register`,
       {
         method: "POST",
         headers: {
