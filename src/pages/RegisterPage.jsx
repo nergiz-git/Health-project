@@ -160,7 +160,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
             <div className="flex items-center gap-3 mt-4">
               <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-semibold">
                 MJ
-              </div>
+              </div>3
               <div>
                 <p className="font-semibold text-slate-800">Mikayıl Cəfərov</p>
                 <p className="text-sm text-slate-500">Tip 2 Diabet Xəstəsi</p>
@@ -170,7 +170,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
         </div>
 
 
-        <div className="w-full max-w-[550px] mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="w-full max-w-[550px] mx-auto animate-fade-in-up overflow-auto max-h-screen lg:overflow-visible lg:max-h-full pb-10 scrollbar-none" style={{ animationDelay: '0.2s' }}>
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 p-8 lg:p-10">
 
 
@@ -497,3 +497,6 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
 }
 
 export default RegisterPage;
+
+
+

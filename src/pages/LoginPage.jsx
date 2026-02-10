@@ -142,7 +142,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
             </div>
 
             <div className="space-y-5 pt-4 animate-slide-in-left" style={{ animationDelay: '0.4s' }}>
-              <div className="flex items-center gap-4 bg-/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-[white] backdrop-blur-md p-5 rounded-2xl shadow-md border border-none w-[600px] xl:w-[500px] 2xl:w-[600px]">
                 <span className="text-3xl">💊</span>
                 <div>
                   <p className="font-semibold text-slate-800 ">Dərman izləmə</p>
@@ -150,7 +150,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-[white] backdrop-blur-md p-5 rounded-2xl shadow-md border border-none w-[600px] xl:w-[500px] 2xl:w-[600px]">
                 <span className="text-3xl">🥗</span>
                 <div>
                   <p className="font-semibold text-slate-800">Qidalanma Planlaması</p>
@@ -158,7 +158,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-[white] backdrop-blur-md p-5 rounded-2xl shadow-md border border-none w-[600px] xl:w-[500px] 2xl:w-[600px]">
                 <span className="text-3xl">💪</span>
                 <div>
                   <p className="font-semibold text-slate-800">Məşq Cədvəlləri</p>
@@ -285,7 +285,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
             </div>
 
           </div>
-          <p className="text-center text-[13px] text-slate-500 mt-6 text-[white]">
+          <p className="text-center text-[13px] text-slate-500 mt-6">
             Daxil olmaqla siz bizim{' '}
             <a href="#" className="text-blue-600 hover:underline">
               Xidmət Şərtləri
