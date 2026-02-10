@@ -179,7 +179,7 @@ const handleSubmit = async (e) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-[white] backdrop-blur-md p-5 rounded-2xl shadow-md border border-none w-[600px] xl:w-[0px] 2xl:w-[600px]">
+              <div className="flex items-center gap-4 bg-[white] backdrop-blur-md p-5 rounded-2xl shadow-md border border-none w-[600px] xl:w-[450px] 2xl:w-[600px]">
                 <span className="text-3xl">💪</span>
                 <div>
                   <p className="font-semibold text-slate-800">Məşq Cədvəlləri</p>
@@ -326,7 +326,7 @@ const handleSubmit = async (e) => {
 
       {showForgotPasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg- rounded-2xl p-10 shadow-2xl shadow-slate-300/50 w-full max-w-2xl">
+          <div className="bg-[white] rounded-2xl p-10 shadow-2xl shadow-slate-300/50 w-full max-w-2xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-slate-900 text-[20px] font-bold">Şifrəni Bərpa Et</h3>
               <button
