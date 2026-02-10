@@ -15,6 +15,11 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
+const [currentUser, setCurrentUser] = useState(null);
+
+const handleLogin = (userData) => {
+  setCurrentUser(userData); // userData: { fullName, profilePhoto, condition ... }
+};
 
   const handleForgotPassword = (e) => {
     e.preventDefault();
@@ -30,7 +35,8 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
   };
 
  
-  const handleSubmit = async (e) => {
+
+const handleSubmit = async (e) => {
   e.preventDefault();
   setAttemptedSubmit(true);
 
@@ -39,15 +45,31 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
     return;
   }
 
- 
-  const demoUser = {
-    fullName: "Demo İstifadəçi",
-    email,
-  };
+  try {
+    const res = await fetch("https://health-assistant-backend-6or5.onrender.com/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
-  onLogin(demoUser);
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Qeydiyyatdan keçin!");
+    }
+
+    const data = await res.json();
+
+    // Token-i localStorage-a yaz
+    if (data.token) localStorage.setItem("token", data.token);
+
+    // Demo user əvəzinə real data göndər
+    onLogin(data);
+
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
 };
-
 
 
 
@@ -142,7 +164,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
             </div>
 
             <div className="space-y-5 pt-4 animate-slide-in-left" style={{ animationDelay: '0.4s' }}>
-              <div className="flex items-center gap-4 bg-white/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-white/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-[white] backdrop-blur-md p-5 rounded-2xl shadow-md border border-none w-[600px] xl:w-[450px] 2xl:w-[600px]">
                 <span className="text-3xl">💊</span>
                 <div>
                   <p className="font-semibold text-slate-800 ">Dərman izləmə</p>
@@ -150,7 +172,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-white/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-white/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-[white] backdrop-blur-md p-5 rounded-2xl shadow-md border border-none w-[600px] xl:w-[450px] 2xl:w-[600px]">
                 <span className="text-3xl">🥗</span>
                 <div>
                   <p className="font-semibold text-slate-800">Qidalanma Planlaması</p>
@@ -158,7 +180,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-white/80 backdrop-blur-md p-5 rounded-2xl shadow-md border border-white/40 w-[600px]">
+              <div className="flex items-center gap-4 bg-[white] backdrop-blur-md p-5 rounded-2xl shadow-md border border-none w-[600px] xl:w-[0px] 2xl:w-[600px]">
                 <span className="text-3xl">💪</span>
                 <div>
                   <p className="font-semibold text-slate-800">Məşq Cədvəlləri</p>
@@ -171,7 +193,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
 
      
         <div className="w-full flex flex-col items-center justify-center lg:justify-end animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 w-full max-w-[520px]">
+          <div className="bg-[white] rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 w-full max-w-[520px]">
 
             <div className="mb-8">
               <h2 className="text-slate-900 text-[28px] font-bold">Xoş Gəlmisiniz</h2>
@@ -189,7 +211,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                     placeholder="sizin.email@gmail.com "
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`${getInputClassName(email)} bg-[#F3F3F5]`}
+                    className={`${getInputClassName(email)} bg-[#F3F3F5] text-slate-500`}
                     required
                   />
                 </div>
@@ -204,7 +226,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`${getPasswordInputClassName(password)}  bg-[#F3F3F5]`}
+                    className={`${getPasswordInputClassName(password)}  bg-[#F3F3F5] text-slate-500`}
                     required
                   />
 
@@ -255,7 +277,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 className="w-full h-[45px] 
              bg-gradient-to-r from-green-600 to-blue-600 
              hover:from-green-700 hover:to-blue-700
-             text-white rounded-xl
+             text- rounded-xl
              shadow-lg hover:shadow-2xl
              transition-all duration-200
              flex items-center justify-center gap-2"
@@ -271,7 +293,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
                 <div className="w-full border-t border-slate-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-slate-500">VƏ YA</span>
+                <span className="px-4 bg- text-slate-500">VƏ YA</span>
               </div>
             </div>
 
@@ -305,7 +327,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
 
       {showForgotPasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-10 shadow-2xl shadow-slate-300/50 w-full max-w-2xl">
+          <div className="bg-[white] rounded-2xl p-10 shadow-2xl shadow-slate-300/50 w-full max-w-2xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-slate-900 text-[20px] font-bold">Şifrəni Bərpa Et</h3>
               <button
@@ -356,3 +378,5 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
 }
 
 export default LoginPage;
+
+

@@ -1,35 +1,46 @@
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import Home from "./pages/Home";
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import Home from './pages/Home';
+import Layout from './layout/layout';
 
 export default function App() {
   const navigate = useNavigate();
+  const [isAuth, setIsAuth] = useState(!!localStorage.getItem('user'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
 
-  const [isAuth, setIsAuth] = useState(!!localStorage.getItem("user"));
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setIsAuth(false);
+    setUser(null);
+    navigate('/');
+  };
 
   return (
     <Routes>
+     
       <Route
-        path="/"
+        path="/login"
         element={
           isAuth ? (
             <Navigate to="/home" />
           ) : (
             <LoginPage
-              onLogin={(user) => {
-                localStorage.setItem("user", JSON.stringify(user));
+              onLogin={(userData) => {
+                localStorage.setItem('user', JSON.stringify(userData));
                 setIsAuth(true);
-                navigate("/home");
+                setUser(userData);
+                navigate('/home');
               }}
-              onSwitchToRegister={() => navigate("/register")}
+              onSwitchToRegister={() => navigate('/register')}
             />
           )
         }
       />
 
+   
       <Route
         path="/register"
         element={
@@ -37,21 +48,26 @@ export default function App() {
             <Navigate to="/home" />
           ) : (
             <RegisterPage
-              onRegister={(user) => {
-                localStorage.setItem("user", JSON.stringify(user));
+              onRegister={(userData) => {
+                localStorage.setItem('user', JSON.stringify(userData));
                 setIsAuth(true);
-                navigate("/home");
+                setUser(userData);
+                navigate('/home');
               }}
-              onSwitchToLogin={() => navigate("/")}
+              onSwitchToLogin={() => navigate('/login')}
             />
           )
         }
       />
 
+ 
       <Route
-        path="/home"
-        element={isAuth ? <Home setIsAuth={setIsAuth} /> : <Navigate to="/" />}
-      />
+        element={isAuth ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}
+      >
+        <Route path="/home" element={<Home setIsAuth={setIsAuth} />} />
+    
+      </Route>
     </Routes>
   );
 }
+
