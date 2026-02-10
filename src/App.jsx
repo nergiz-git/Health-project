@@ -15,7 +15,7 @@ export default function App() {
     localStorage.removeItem('user');
     setIsAuth(false);
     setUser(null);
-    navigate('/');
+    navigate('/login');
   };
 
   return (
