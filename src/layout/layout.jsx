@@ -84,7 +84,8 @@ function Layout({ user, onLogout }) {
       <Sidebar
         isOpen={isSidebarOpen}
         onToggle={handleToggleSidebar}
-        user={user}
+          user={user}   
+       
         onLogout={onLogout}
         currentPage=""
         onNavigate={() => {}}

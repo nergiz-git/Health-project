@@ -4,13 +4,19 @@ import sidebarBackground from '../assets/images/DashboardPage.png';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/Avatar';
 
 function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, onOpenProfile }) {
-  const getInitials = (name) => {
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase();
-  };
+ 
+  const getInitials = (name = '') => {
+  if (!name || typeof name !== 'string') return '';
+
+  return name
+    .trim()
+    .split(' ')
+    .filter(Boolean)
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase();
+};
+
 
   const menuItems = [
     { icon: Home, label: 'Ana Səhifə', page: 'dashboard' },
@@ -26,16 +32,7 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
         md:fixed md:inset-y-0 md:left-0 md:z-50
       `}
     >
-      {/* Sidebar Background */}
-      {/* <div
-        className="absolute inset-0 opacity-30 pointer-events-none"
-        style={{
-          backgroundImage: `url(${sidebarBackground})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      /> */}
+     
 
       <div className="relative z-10 flex flex-col h-full">
         {/* Logo + Toggle */}
@@ -108,12 +105,12 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
                 <Avatar className="h-10 w-10 ring-2 ring-slate-100 shadow-sm">
                   <AvatarImage src={user?.profilePhoto || ''} alt={user?.fullName || 'User'} />
                   <AvatarFallback className="bg-gradient-to-br from-blue-500 to-green-500 text-white font-semibold text-[14px]">
-                    {user ? getInitials(user.fullName) : 'SJ'}
+                    {user ? getInitials(user.fullName) : 'GU'}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0 text-left">
                   <div className="text-[14px] font-semibold text-slate-800 truncate">
-                    {user?.fullName || 'Sarah Johnson'}
+                    {user?.fullName || 'Istifadeci'}
                   </div>
                   <div className="text-[12px] text-slate-500 truncate">
                     {user?.condition || 'Type 2 Diabetes'}

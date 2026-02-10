@@ -3,6 +3,9 @@ import medicalBg from "../assets/images/medicalBg.png";
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Heart, HeartPulse, Ruler, Weight } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+
+
 
 function RegisterPage({ onRegister, onSwitchToLogin }) {
   const [fullName, setFullName] = useState('');
@@ -18,6 +21,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
   const [severity, setSeverity] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+ const navigate = useNavigate();
 
   const healthConditionCategories = [
     'Ürək–damar sistemi', 'Tənəffüs sistemi', 'Endokrin və maddələr mübadiləsi',
@@ -40,27 +44,50 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
   };
 
   const getAvailableConditions = () => conditionCategory ? conditionsByCategory[conditionCategory] || [] : [];
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) return alert("Şifrələr uyğun deyil!");
-
-    const newUser = { fullName, email, password, dateOfBirth, gender, height, weight, conditionCategory, condition, severity };
-
-    try {
-      const res = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser)
-      });
-      if (!res.ok) throw new Error("İstifadəçi əlavə edilə bilmədi");
-
-      const data = await res.json();
-      onRegister(data);
-    } catch (err) {
-      console.error(err);
-    }
+  const payload = {
+    fullName,
+    email,
+    password,
+    dateOfBirth,              
+    gender: gender.toLowerCase(),
+    height: Number(height),
+    weight: Number(weight),
+    conditionId: 1,        
+    severity: "mild"       
   };
+
+  console.log("REGISTER PAYLOAD:", payload);
+
+  try {
+    const res = await fetch(
+      "https://health-assistant-backend-6or5.onrender.com/auth/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error("BACKEND ERROR:", data);
+      throw new Error(data.message || "İstifadəçi əlavə edilə bilmədi");
+    }
+  
+    console.log("REGISTER SUCCESS:", data);
+    localStorage.setItem("token", data.token);
+    navigate("/login");
+  } catch (err) {
+    console.error("REGISTER CATCH:", err);
+    alert(err.message);
+  }
+};
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-teal-50">
@@ -233,7 +260,7 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                     type="date"
                     value={dateOfBirth}
                     onChange={e => setDateOfBirth(e.target.value)}
-                    className="w-full pl-12 pr-4 pr-[270px] py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
+                    className="w-full pl-12 pr-4  py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     required
                   />
                 </div>
@@ -344,6 +371,9 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                     <option value="">Xəstəliyinizi seçin</option>
                     {getAvailableConditions().map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
+                
+
+
                   <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                     <svg className="w-5 h-5 text-slate-400 h-[60px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -351,6 +381,9 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
                   </div>
                 </div>
               </div>
+
+    
+
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Xəstəliyin Ağırlıq Dərəcəsi</label>
                 <div className="relative">
@@ -497,6 +530,5 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
 }
 
 export default RegisterPage;
-
 
 

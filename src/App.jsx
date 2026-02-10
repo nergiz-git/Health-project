@@ -22,7 +22,7 @@ export default function App() {
     <Routes>
      
       <Route
-        path="/"
+        path="/login"
         element={
           isAuth ? (
             <Navigate to="/home" />
@@ -54,7 +54,7 @@ export default function App() {
                 setUser(userData);
                 navigate('/home');
               }}
-              onSwitchToLogin={() => navigate('/')}
+              onSwitchToLogin={() => navigate('/login')}
             />
           )
         }
@@ -62,7 +62,7 @@ export default function App() {
 
  
       <Route
-        element={isAuth ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/" />}
+        element={isAuth ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}
       >
         <Route path="/home" element={<Home setIsAuth={setIsAuth} />} />
     
@@ -70,3 +70,4 @@ export default function App() {
     </Routes>
   );
 }
+
