@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Home from './pages/Home';
 import Layout from './layout/layout';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -80,7 +81,7 @@ function App() {
 
         
         <Route
-          path="/register"
+          path="/register" 
           element={
             user ? (
               <Navigate to="/home" replace />
@@ -89,8 +90,12 @@ function App() {
             )
           }
         />
+  
+       <Route
+  path="/reset-password" 
+  element={user ? <Navigate to="/login" replace /> : <ResetPasswordPage />}
+/>
 
-     
         <Route
           path="/"
           element={

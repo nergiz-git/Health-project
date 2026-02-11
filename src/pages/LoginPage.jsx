@@ -5,10 +5,10 @@ import medicalBg from "../assets/images/medicalBg.png";
 import { Label } from "../ui/Label";
 import { Input } from "../ui/Input";
 import { useNavigate } from "react-router-dom";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function LoginPage({ onLogin, onSwitchToRegister }) {
-   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -18,26 +18,11 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
-
-
-
+ const navigate = useNavigate();
 const [currentUser, setCurrentUser] = useState(null);
 const handleLogin = (userData) => {
   setCurrentUser(userData); 
 };
-
-  const handleForgotPassword = (e) => {
-    e.preventDefault();
-  
-    console.log('Password reset requested for:', resetEmail);
-    setResetSent(true);
-
-    setTimeout(() => {
-      setShowForgotPasswordModal(false);
-      setResetSent(false);
-      setResetEmail('');
-    }, 2000);
-  };
 
 
 const handleSubmit = async (e) => {
@@ -58,21 +43,23 @@ const handleSubmit = async (e) => {
 
     if (!res.ok) {
       const errorData = await res.json();
-        throw new Error(errorData.message || "Qeydiyyatdan keçin!");
+      throw new Error(errorData.message || "Qeydiyyatdan keçin!");
     }
 
     const data = await res.json();
-   
+
+    if (data.token) localStorage.setItem("token", data.token);
 
     onLogin(data);
-
-      navigate('/home'); 
 
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
 };
+
+
+
   const getInputClassName = (value) => {
     if (!attemptedSubmit)
       return "pl-12 pr-4 py-6 text-[15px] border-slate-300 focus:border-blue-500 focus:ring-blue-500/30 rounded-xl";
@@ -91,8 +78,33 @@ const handleSubmit = async (e) => {
       : "pl-12 pr-12 py-6 text-[15px] border border-slate-300 focus:border-blue-500 focus:ring-blue-500/30 rounded-xl";
   };
 
- 
 
+  const handleForgotPassword = async (e) => {
+  e.preventDefault();
+
+  if (!resetEmail) return;
+
+  try {
+
+    const res = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: resetEmail }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+   
+      setResetSent(true);    
+    } else {
+      alert(data.message || "Xəta baş verdi!");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Server ilə əlaqə qurulmadı.");
+  }
+};
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-blue-50/30 to-green-50/30 relative overflow-hidden">
@@ -303,7 +315,9 @@ const handleSubmit = async (e) => {
             <div className="text-center">
               <p>
                 Hesabınız yoxdur?{" "}
-                <button   onClick={() => navigate('/register')} className="text-blue-600 font-semibold !bg-transparent">
+                <button  type="button"
+             onClick={() => navigate('/register')}
+                 className="text-blue-600 font-semibold !bg-transparent">
                   Qeydiyyatdan keçin
                 </button>
               </p>

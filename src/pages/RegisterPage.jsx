@@ -178,7 +178,7 @@ const handleSubmit = async (e) => {
             <div className="flex items-center gap-3 mt-4">
               <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-semibold">
                 MJ
-              </div>3
+              </div>
               <div>
                 <p className="font-semibold text-slate-800">Mikayıl Cəfərov</p>
                 <p className="text-sm text-slate-500">Tip 2 Diabet Xəstəsi</p>
