@@ -514,7 +514,7 @@ const handleSubmit = async (e) => {
                 Artıq hesabınız var?{' '}
                 <button
                   type="button"
-                  onClick={onSwitchToLogin}
+                  onClick={() => navigate('/login')}
                   className="text-teal-600 hover:text-teal-700 font-semibold transition-colors !bg-transparent"
                 >
                   Daxil olun

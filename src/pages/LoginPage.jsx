@@ -4,6 +4,8 @@ import { Button } from "../ui/Button";
 import medicalBg from "../assets/images/medicalBg.png";
 import { Label } from "../ui/Label";
 import { Input } from "../ui/Input";
+import { useNavigate } from "react-router-dom";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function LoginPage({ onLogin, onSwitchToRegister }) {
@@ -16,7 +18,7 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
-
+ const navigate = useNavigate();
 const [currentUser, setCurrentUser] = useState(null);
 const handleLogin = (userData) => {
   setCurrentUser(userData); 
@@ -299,7 +301,9 @@ const handleSubmit = async (e) => {
             <div className="text-center">
               <p>
                 Hesabınız yoxdur?{" "}
-                <button onClick={onSwitchToRegister} className="text-blue-600 font-semibold !bg-transparent">
+                <button  type="button"
+             onClick={() => navigate('/register')}
+                 className="text-blue-600 font-semibold !bg-transparent">
                   Qeydiyyatdan keçin
                 </button>
               </p>
