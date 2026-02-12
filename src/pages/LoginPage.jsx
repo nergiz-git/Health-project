@@ -18,45 +18,46 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
- const navigate = useNavigate();
-const [currentUser, setCurrentUser] = useState(null);
-const handleLogin = (userData) => {
-  setCurrentUser(userData); 
-};
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const handleLogin = (userData) => {
+    setCurrentUser(userData);
+  };
 
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setAttemptedSubmit(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setAttemptedSubmit(true);
 
-  if (!email || !password) {
-    setShowValidationError(true);
-    return;
-  }
-
-  try {
-    const res = await fetch(`${API_BASE_URL}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.message || "Qeydiyyatdan keçin!");
+    if (!email || !password) {
+      setShowValidationError(true);
+      return;
     }
 
-    const data = await res.json();
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
 
-    if (data.token) localStorage.setItem("token", data.token);
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Qeydiyyatdan keçin!");
+      }
 
-    onLogin(data);
+      const data = await res.json();
 
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
+      if (data.token) localStorage.setItem("token", data.token);
+
+      onLogin(data);
+
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  };
 
 
 
@@ -80,34 +81,38 @@ const handleSubmit = async (e) => {
 
 
   const handleForgotPassword = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!resetEmail) return;
+    if (!resetEmail) return;
 
-  try {
+    try {
 
-    const res = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: resetEmail }),
-    });
+      const res = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: resetEmail }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-   
-      setResetSent(true);    
-    } else {
-      alert(data.message || "Xəta baş verdi!");
+      if (res.ok) {
+
+        setResetSent(true);
+      } else {
+        alert(data.message || "Xəta baş verdi!");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server ilə əlaqə qurulmadı.");
     }
-  } catch (error) {
-    console.error(error);
-    alert("Server ilə əlaqə qurulmadı.");
-  }
-};
+  };
+
 
   return (
+    
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-blue-50/30 to-green-50/30 relative overflow-hidden">
+ 
+
       <style>{`
   @keyframes slideInLeft {
     from {
@@ -149,7 +154,7 @@ const handleSubmit = async (e) => {
 
       <div className="relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full min-h-screen px-6 lg:px-15 py-12">
 
-       
+
         <div className="hidden lg:flex h-full items-center">
           <div className="space-y-10 pr-10 ml-[100px] mt-[100px]">
 
@@ -206,7 +211,7 @@ const handleSubmit = async (e) => {
           </div>
         </div>
 
-     
+
         <div className="w-full flex flex-col items-center justify-center lg:justify-end animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <div className="bg-[white] rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 w-full max-w-[520px]">
 
@@ -229,6 +234,7 @@ const handleSubmit = async (e) => {
                     className={`${getInputClassName(email)} bg-[#F3F3F5] text-slate-500`}
                     required
                   />
+
                 </div>
               </div>
 
@@ -241,9 +247,11 @@ const handleSubmit = async (e) => {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+
                     className={`${getPasswordInputClassName(password)}  bg-[#F3F3F5] text-slate-500`}
                     required
                   />
+
 
                   <button
                     type="button"
@@ -254,6 +262,7 @@ const handleSubmit = async (e) => {
                   </button>
                 </div>
               </div>
+
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -315,9 +324,9 @@ const handleSubmit = async (e) => {
             <div className="text-center">
               <p>
                 Hesabınız yoxdur?{" "}
-                <button  type="button"
-             onClick={() => navigate('/register')}
-                 className="text-blue-600 font-semibold !bg-transparent">
+                <button type="button"
+                  onClick={() => navigate('/register')}
+                  className="text-blue-600 font-semibold !bg-transparent">
                   Qeydiyyatdan keçin
                 </button>
               </p>

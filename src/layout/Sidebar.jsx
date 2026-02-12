@@ -24,6 +24,7 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
     { icon: UtensilsCrossed, label: 'Qidalanma Planları', page: 'meal-plans' },
     { icon: Dumbbell, label: 'Məşqlər', page: 'workouts' },
   ];
+const userCondition = user?.condition || localStorage.getItem('userCondition') || 'Xəstəlik seçilməyib';
 
   return (
     <aside
@@ -111,7 +112,7 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
                     {user?.fullName || 'Giriş edilmeyib'}
                   </div>
                   <div className="text-[12px] text-slate-500 truncate">
-                    {user?.condition || 'Type 2 Diabetes'}
+                    {userCondition}
                   </div>
                 </div>
               </button>

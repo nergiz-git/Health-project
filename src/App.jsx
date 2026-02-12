@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Layout from './layout/layout';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
-      
+
       if (token) {
         try {
           const res = await fetch(`${API_BASE_URL}/auth/me`, {
@@ -36,7 +37,7 @@ function App() {
           localStorage.removeItem('token');
         }
       }
-      
+
       setIsLoading(false);
     };
 
@@ -53,6 +54,9 @@ function App() {
     setUser(null);
   };
 
+ const handleUpdateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-green-50/30">
@@ -67,7 +71,7 @@ function App() {
   return (
     <Router>
       <Routes>
-   
+
         <Route
           path="/login"
           element={
@@ -79,9 +83,9 @@ function App() {
           }
         />
 
-        
+
         <Route
-          path="/register" 
+          path="/register"
           element={
             user ? (
               <Navigate to="/home" replace />
@@ -90,16 +94,20 @@ function App() {
             )
           }
         />
-  
-   <Route
-  path="/reset-password" 
-  element={<ResetPasswordPage />}
-/>
+
+        <Route
+          path="/reset-password"
+          element={<ResetPasswordPage />}
+        />
+
+
         <Route
           path="/"
           element={
             user ? (
-              <Layout user={user} onLogout={handleLogout} />
+              <Layout user={user} onLogout={handleLogout} 
+                onUpdateUser={handleUpdateUser}
+              />
             ) : (
               <Navigate to="/login" replace />
             )
@@ -109,7 +117,7 @@ function App() {
           <Route index element={<Navigate to="home" replace />} />
         </Route>
 
-      
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
