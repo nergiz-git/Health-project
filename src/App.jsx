@@ -91,11 +91,10 @@ function App() {
           }
         />
   
-       <Route
+   <Route
   path="/reset-password" 
-  element={user ? <Navigate to="/login" replace /> : <ResetPasswordPage />}
+  element={<ResetPasswordPage />}
 />
-
         <Route
           path="/"
           element={
