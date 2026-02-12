@@ -88,8 +88,8 @@ export default function ResetPasswordPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-green-50/30">
-            <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-xl">
+        <div className="min-h-screen flex items-center justify-center bg-black via-blue-50/30 to-green-50/30">
+            <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-xl shadow-2xl w-full max-w-xl shadow-2xl shadow-slate-300/50">
                 <h2 className="text-2xl font-bold mb-2 text-slate-900">Yeni Şifrə Təyin Et</h2>
                 <p className="text-slate-600 mb-6">Yeni şifrənizi daxil edin</p>
 
@@ -186,7 +186,7 @@ export default function ResetPasswordPage() {
                 </form>
 
                 {/* Login-ə qayıt */}
-                {!success && ( // ✅ Success zamanı gizlət
+                {/* {!success && ( // ✅ Success zamanı gizlət
                     <div className="mt-6 text-center">
                         <button
                             onClick={() => navigate("/login")}
@@ -195,7 +195,7 @@ export default function ResetPasswordPage() {
                             ← Login səhifəsinə qayıt
                         </button>
                     </div>
-                )}
+                )} */}
             </div>
         </div>
     );
