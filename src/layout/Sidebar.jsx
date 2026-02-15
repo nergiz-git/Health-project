@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from "react-router-dom";
 import { Home, Pill, UtensilsCrossed, Dumbbell, ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
 import sidebarBackground from '../assets/images/DashboardPage.png';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/Avatar';
@@ -18,20 +19,34 @@ function Sidebar({ isOpen, onToggle, user, onLogout, currentPage, onNavigate, on
 };
 
 
+  // const menuItems = [
+  //   { icon: Home, label: 'Ana Səhifə', page: 'dashboard' },
+  //   { icon: Pill, label: 'Dərmanlar', page: 'medications' },
+  //   { icon: UtensilsCrossed, label: 'Qidalanma Planları', page: 'meal-plans' },
+  //   { icon: Dumbbell, label: 'Məşqlər', page: 'workouts' },
+  // ];
   const menuItems = [
-    { icon: Home, label: 'Ana Səhifə', page: 'dashboard' },
-    { icon: Pill, label: 'Dərmanlar', page: 'medications' },
-    { icon: UtensilsCrossed, label: 'Qidalanma Planları', page: 'meal-plans' },
-    { icon: Dumbbell, label: 'Məşqlər', page: 'workouts' },
-  ];
+  { icon: Home, label: 'Ana Səhifə', path: '/home' },
+  { icon: Pill, label: 'Dərmanlar', path: '/medications' },
+  { icon: UtensilsCrossed, label: 'Qidalanma Planları', path: '/meal-plans' },
+  { icon: Dumbbell, label: 'Məşqlər', path: '/workouts' },
+];
+
 const userCondition = user?.condition || localStorage.getItem('userCondition') || 'Xəstəlik seçilməyib';
 
   return (
     <aside
-      className={` border-r border-slate-200/80 transition-all duration-300 flex flex-col flex-shrink-0 shadow-sm relative overflow-hidden
-        ${isOpen ? 'w-72' : 'w-20'}
-        md:fixed md:inset-y-0 md:left-0 md:z-50
-      `}
+      // className={` border-r border-slate-200/80 transition-all duration-300 flex flex-col flex-shrink-0 shadow-sm relative overflow-hidden
+      //   ${isOpen ? 'w-72' : 'w-20'}
+      //   md:fixed md:inset-y-0 md:left-0 md:z-50
+      // `}
+       className={`
+    fixed left-0 top-0 h-full z-40
+    border-r border-slate-200/80
+    transition-all duration-300
+    ${isOpen ? "w-[260px]" : "w-[88px]"}
+  `}
+
     >
      
 
@@ -70,7 +85,7 @@ const userCondition = user?.condition || localStorage.getItem('userCondition') |
           )}
         </div>
 
-        <nav className="flex-1 py-8 px-4 overflow-y-auto">
+        {/* <nav className="flex-1 py-8 px-4 overflow-y-auto">
           <ul className="space-y-1.5">
             {menuItems.map((item) => {
               const Icon = item.icon;
@@ -92,7 +107,36 @@ const userCondition = user?.condition || localStorage.getItem('userCondition') |
               );
             })}
           </ul>
-        </nav>
+        </nav> */}
+<nav className="flex-1 py-8 px-4 overflow-y-auto">
+  <ul className="space-y-1.5">
+    {menuItems.map((item) => {
+      const Icon = item.icon;
+
+      return (
+        <li key={item.label}>
+          <NavLink
+            to={item.path}
+            className={({ isActive }) =>
+              `w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-all ${
+                isActive
+                  ? 'bg-gradient-to-r from-blue-50 to-blue-50/50 text-blue-700 shadow-sm border border-blue-100'
+                  : 'text-slate-800 hover:bg-slate-50 hover:text-slate-900'
+              }`
+            }
+          >
+            <Icon className="w-5 h-5 stroke-[2.5]" />
+            {isOpen && (
+              <span className="text-[15px] font-semibold">
+                {item.label}
+              </span>
+            )}
+          </NavLink>
+        </li>
+      );
+    })}
+  </ul>
+</nav>
 
         <div className="border-t border-slate-200/80 p-4">
           {isOpen ? (

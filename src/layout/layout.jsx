@@ -73,7 +73,7 @@ function Layout({ user, onLogout, onUpdateUser }) {
 
   return (
     <div
-      className="flex h-screen w-screen"
+      className="flex h-screen w-full overflow-x-hidden"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
@@ -92,13 +92,26 @@ function Layout({ user, onLogout, onUpdateUser }) {
         onNavigate={() => { }}
       />
 
-      <div className="flex-1 flex flex-col overflow-hidden bg-transparent">
+      <div  className={`
+    flex-1 flex flex-col overflow-hidden bg-transparent
+    transition-all duration-300
+    ${isSidebarOpen ? "pl-[260px]" : "pl-[88px]"}
+  `}>
         <Header user={user} onLogout={onLogout} />
 
-        <main className="flex-1 overflow-auto p-4">
-          <Outlet />
-        </main>
-
+        {/* <main className="flex-1 overflow-auto p-4">
+          <Outlet/>
+        </main> */}
+{/* <main className="flex-1 overflow-y-auto px-6 py-6">
+  <div className=" w-full p-4 ">
+    <Outlet />
+  </div>
+</main> */}
+<main className="flex-1  px-6 py-6">
+  <div className="max-w-[1480px]  w-full">
+    <Outlet context={{ user }} />
+  </div>
+</main>
         <ProfileModal
           isOpen={isProfileOpen}
           onClose={() => setIsProfileOpen(false)}
