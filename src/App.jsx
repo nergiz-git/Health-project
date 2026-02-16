@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Layout from './layout/layout';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import MedicationsPage from './pages/MedicationsPage';
+import MealPlansPage from './pages/MealPlansPage';
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -195,6 +196,7 @@ return (
         {/* pages */}
         <Route path="home" element={<Home user={user} />} />
         <Route path="medications" element={<MedicationsPage />} />
+        <Route path="meal-plans" element={<MealPlansPage/>} />
       </Route>
 
       {/* fallback */}

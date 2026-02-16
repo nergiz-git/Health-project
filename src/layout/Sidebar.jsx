@@ -118,10 +118,10 @@ const userCondition = user?.condition || localStorage.getItem('userCondition') |
           <NavLink
             to={item.path}
             className={({ isActive }) =>
-              `w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-all ${
+              `w-full flex  items-center gap-3.5 px-4 py-3.5 rounded-xl transition-all ${
                 isActive
                   ? 'bg-gradient-to-r from-blue-50 to-blue-50/50 text-blue-700 shadow-sm border border-blue-100'
-                  : 'text-slate-800 hover:bg-slate-50 hover:text-slate-900'
+                  : '!text-slate-800 hover:!bg-slate-50 hover:!text-slate-900'
               }`
             }
           >

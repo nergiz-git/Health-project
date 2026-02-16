@@ -21,15 +21,34 @@ a {
 a:hover {
   color: #535bf2;
 }
-/* scrollbar gizlət amma scroll işləsin */
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE və Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;    
 }
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(120,120,120,0.35); 
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(120,120,120,0.6); 
+}
+
 
 body {
   margin: 0;

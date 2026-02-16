@@ -57,9 +57,19 @@ const minutes = Array.from({ length: 60 }, (_, i) =>
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <motion.div
+  initial={{ y: 30, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{
+    duration: 1.2,
+    ease: "easeOut",
+    delay: 0.2
+  
+  }} className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
 
-      <div className="bg-white   w-[405px] rounded-2xl shadow-xl p-6 relative">
+  >
+    
+      <div className="!bg-white   w-[405px] rounded-2xl shadow-xl p-6 relative">
 
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-lg  font-bold">Dərman Əlavə Et</h2>
@@ -248,7 +258,7 @@ const minutes = Array.from({ length: 60 }, (_, i) =>
 
         </form>
       </div>
-    </div>
+   </motion.div>
   );
 }
 export default AddMedicationModal;

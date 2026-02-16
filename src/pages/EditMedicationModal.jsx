@@ -18,7 +18,7 @@ import { Label } from "../ui/Label";
   });
 const [showTimePicker, setShowTimePicker] = useState(false);
 
-  // Modal açılarkən inputları doldurur
+
   useEffect(() => {
     if (medication) {
       setFormData(medication);
@@ -30,7 +30,7 @@ const [showTimePicker, setShowTimePicker] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ⭐ ƏN VACİB DÜZƏLİŞ — id ilə birlikdə göndəririk
+
     onUpdate({
       id: medication.id,
       ...formData,

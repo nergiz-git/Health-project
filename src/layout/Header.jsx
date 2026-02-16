@@ -13,7 +13,7 @@ export function Header({ user, onLogout }) {
   }, []);
 
   return (
-    <header className="h-20  border-b border-slate-200/80 flex items-center justify-between px-8 flex-shrink-0 shadow-sm">
+    <header className="h-20 sticky  border-b border-slate-200/80 flex items-center justify-between px-8 flex-shrink-0 shadow-sm">
 
       <div>
         <div className="text-slate-600 text-[14px] font-medium font-bold ">Xoş gəlmisiniz</div>
