@@ -18,11 +18,14 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
+
+
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
   const handleLogin = (userData) => {
     setCurrentUser(userData);
+
   };
 
 
@@ -324,9 +327,11 @@ function LoginPage({ onLogin, onSwitchToRegister }) {
             <div className="text-center">
               <p>
                 Hesabınız yoxdur?{" "}
-                <button type="button"
-                  onClick={() => navigate('/register')}
-                  className="text-blue-600 font-semibold !bg-transparent">
+
+                <button  type="button"
+             onClick={() => navigate('/register')}
+                 className="text-blue-600 font-semibold !bg-transparent">
+
                   Qeydiyyatdan keçin
                 </button>
               </p>
