@@ -1,13 +1,13 @@
 import medicalBg from "../assets/images/medicalBg.png";
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-import { Heart, HeartPulse, Ruler, Weight } from 'lucide-react';
+import { CheckCircle, Heart, HeartPulse, Ruler, Weight } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
-function RegisterPage({ onRegister, onSwitchToLogin }) {
+function RegisterPage({ onSwitchToLogin }) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +21,9 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
   const [severity, setSeverity] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
- const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [showPasswordRules, setShowPasswordRules] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
 
   const healthConditionCategories = [
     'Ürək–damar sistemi', 'Tənəffüs sistemi', 'Endokrin və maddələr mübadiləsi',
@@ -43,52 +45,57 @@ function RegisterPage({ onRegister, onSwitchToLogin }) {
     'Böyrək və qaraciyər xəstəlikləri': ['Böyrək çatışmazlığı', 'Hepatit', 'Sirroz']
   };
 
-  const getAvailableConditions = () => conditionCategory ? conditionsByCategory[conditionCategory] || [] : [];
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const validatePassword = (value) => {
+    const hasLength = value.length >= 8;
+    const hasUpper = /[A-Z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(value);
 
-  const payload = {
-    fullName,
-    email,
-    password,
-    dateOfBirth,              
-    gender: gender.toLowerCase(),
-    height: Number(height),
-    weight: Number(weight),
-    conditionId: 1,        
-    severity: "mild"       
+    const isValid = hasLength && hasUpper && hasNumber && hasSpecial;
+    setPasswordValid(isValid);
+
+
+    if (isValid) setShowPasswordRules(false);
   };
 
-  console.log("REGISTER PAYLOAD:", payload);
+  const getAvailableConditions = () => conditionCategory ? conditionsByCategory[conditionCategory] || [] : [];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const res = await fetch(
-      `${API_BASE_URL}/auth/register`,
-      {
+    const payload = {
+      fullName,
+      email,
+      password,
+      dateOfBirth,
+
+      gender: gender.toLowerCase(),
+      height: Number(height),
+      weight: Number(weight),
+      conditionId: 1,
+      severity: "mild"
+    };
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/register`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Qeydiyyat uğursuz oldu");
       }
-    );
 
-    const data = await res.json();
+      console.log("REGISTER SUCCESS:", data);
 
-    if (!res.ok) {
-      console.error("BACKEND ERROR:", data);
-      throw new Error(data.message || "İstifadəçi əlavə edilə bilmədi");
+      navigate("/login");
+    } catch (err) {
+      console.error("REGISTER ERROR:", err);
+      alert(err.message);
     }
-  
-    console.log("REGISTER SUCCESS:", data);
-    localStorage.setItem("token", data.token);
-    navigate("/login");
-  } catch (err) {
-    console.error("REGISTER CATCH:", err);
-    alert(err.message);
-  }
-};
-
+  };
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-teal-50">
       <style>{`
@@ -187,7 +194,7 @@ const handleSubmit = async (e) => {
             <div className="flex items-center gap-3 mt-4">
               <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-semibold">
                 MJ
-              </div>3
+              </div>
               <div>
                 <p className="font-semibold text-slate-800">Mikayıl Cəfərov</p>
                 <p className="text-sm text-slate-500">Tip 2 Diabet Xəstəsi</p>
@@ -371,7 +378,7 @@ const handleSubmit = async (e) => {
                     <option value="">Xəstəliyinizi seçin</option>
                     {getAvailableConditions().map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
-                
+
 
 
                   <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
@@ -382,7 +389,7 @@ const handleSubmit = async (e) => {
                 </div>
               </div>
 
-    
+
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Xəstəliyin Ağırlıq Dərəcəsi</label>
@@ -415,11 +422,21 @@ const handleSubmit = async (e) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
+
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setPassword(value);
+
+                      if (value.length > 0) {
+                        setShowPasswordRules(true);
+                      }
+                      validatePassword(value);
+                    }}
                     className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     required
                   />
@@ -440,6 +457,34 @@ const handleSubmit = async (e) => {
                     )}
                   </button>
                 </div>
+                {showPasswordRules && !passwordValid && (
+                  <div className=" text-red-500 text-[13px] rounded-xl  mt-4 w-full max-w-[330px]">
+                    <p className="font-semibold mb-2">Şifrə aşağıdakı tələblərə cavab verməlidir:</p>
+
+                    <div className="space-y-1 text-red-500">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle size={14} />
+                        <span>Ən azı 8 simvol</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <CheckCircle size={14} />
+                        <span>Ən azı bir böyük hərf</span>
+                      </div>
+
+                      {/* <div className="flex items-center gap-2">
+        <CheckCircle size={14} />
+        <span>Ən azı bir rəqəm</span>
+      </div> */}
+
+                      <div className="flex items-center gap-2">
+                        <CheckCircle size={14} />
+                        <span>Ən azı bir xüsusi simvol</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Şifrəni Təsdiqləyin</label>
@@ -457,6 +502,7 @@ const handleSubmit = async (e) => {
                     className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all bg-[#F3F3F5] text-slate-500"
                     required
                   />
+
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}

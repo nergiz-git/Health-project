@@ -5,6 +5,10 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Home from './pages/Home';
 import Layout from './layout/layout';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import MedicationsPage from './pages/MedicationsPage';
+import MealPlansPage from './pages/MealPlansPage';
+
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -52,6 +56,9 @@ function App() {
     setUser(null);
   };
 
+ const handleUpdateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-green-50/30">
@@ -63,52 +70,141 @@ function App() {
     );
   }
 
-  return (
-    <Router>
-      <Routes>
+//   return (
+//     <Router>
+//       <Routes>
 
-        <Route
-          path="/login"
-          element={
-            user ? (
-              <Navigate to="/home" replace />
-            ) : (
-              <LoginPage onLogin={handleLogin} />
-            )
-          }
-        />
-
-
-        <Route
-          path="/register"
-          element={
-            user ? (
-              <Navigate to="/home" replace />
-            ) : (
-              <RegisterPage />
-            )
-          }
-        />
+//         <Route
+//           path="/login"
+//           element={
+//             user ? (
+//               <Navigate to="/home" replace />
+//             ) : (
+//               <LoginPage onLogin={handleLogin} />
+//             )
+//           }
+//         />
 
 
-        <Route
-          path="/"
-          element={
-            user ? (
-              <Layout user={user} onLogout={handleLogout} />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        >
-          <Route path="home" element={<Home user={user} />} />
-          <Route index element={<Navigate to="home" replace />} />
-        </Route>
+//         <Route
+//           path="/register"
+//           element={
+//             user ? (
+//               <Navigate to="/home" replace />
+//             ) : (
+//               <RegisterPage />
+//             )
+//           }
+//         />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Router>
-  );
+//         <Route
+//           path="/reset-password"
+//           element={<ResetPasswordPage />}
+//         />
+
+
+//         <Route
+//           path="/"
+//           element={
+//             user ? (
+//               <Layout user={user} onLogout={handleLogout} 
+//                 onUpdateUser={handleUpdateUser}
+//               />
+//             ) : (
+//               <Navigate to="/login" replace />
+//             )
+//           }
+//         >
+//           <Route path="home" element={<Home user={user} />} />
+//           <Route index element={<Navigate to="home" replace />} />
+//         </Route>
+//   <Route
+//   path="/"
+//   element={
+//     user ? (
+//       <Layout 
+//         user={user} 
+//         onLogout={handleLogout} 
+//         onUpdateUser={handleUpdateUser}
+//       />
+//     ) : (
+//       <Navigate to="/login" replace />
+//     )
+//   }
+// >
+//   <Route index element={<Navigate to="home" replace />} />
+
+//   <Route path="home" element={<Home user={user} />} />
+//   <Route path="medications" element={<MedicationsPage/>} />
+// </Route>
+
+
+//         <Route path="*" element={<Navigate to="/" replace />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+return (
+  <Router>
+    <Routes>
+
+      <Route
+        path="/login"
+        element={
+          user ? (
+            <Navigate to="/home" replace />
+          ) : (
+            <LoginPage onLogin={handleLogin} />
+          )
+        }
+      />
+
+      <Route
+        path="/register"
+        element={
+          user ? (
+            <Navigate to="/home" replace />
+          ) : (
+            <RegisterPage />
+          )
+        }
+      />
+
+      <Route
+        path="/reset-password"
+        element={<ResetPasswordPage />}
+      />
+
+      {/* 🔐 PROTECTED ROUTES */}
+      <Route
+        path="/"
+        element={
+          user ? (
+            <Layout
+              user={user}
+              onLogout={handleLogout}
+              onUpdateUser={handleUpdateUser}
+            />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      >
+        {/* default → /home */}
+        <Route index element={<Navigate to="home" replace />} />
+
+        {/* pages */}
+        <Route path="home" element={<Home user={user} />} />
+        <Route path="medications" element={<MedicationsPage />} />
+        <Route path="meal-plans" element={<MealPlansPage/>} />
+      </Route>
+
+      {/* fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+
+    </Routes>
+  </Router>
+);
 }
 
 export default App;
